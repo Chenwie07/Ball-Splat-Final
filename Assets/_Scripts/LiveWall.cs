@@ -8,11 +8,7 @@ public class LiveWall : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("Should DIe");
-
-            // play player die particle effect. 
-            // Destroy(collision.gameObject);
-            StartCoroutine(collision.gameObject.GetComponent<PlayerFxControl>().PlayerDieFx()); 
+            StartCoroutine(collision.gameObject.GetComponent<PlayerFxControl>().PlayerDieFx());
         }
     }
 }

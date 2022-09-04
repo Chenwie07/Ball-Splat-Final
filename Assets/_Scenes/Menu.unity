@@ -333,7 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballMove: {fileID: 8300000, guid: 88401ba22a333624b95e5b26a0e01562, type: 3}
   _ballHitWall: {fileID: 8300000, guid: 28235c2586907854ba0db3f87416b006, type: 3}
-  _ballExplodes: {fileID: 0}
+  _ballExplodes: {fileID: 8300000, guid: 70206e37c37aec14d97eff3b9beb7b27, type: 3}
 --- !u!4 &303450537
 Transform:
   m_ObjectHideFlags: 0
@@ -1175,7 +1175,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: A LEARNING PROJECT
+  m_text: "A LEARNING PROJECT\n\nCopyRight by NIntendo, Music: Legend of Zelda \nTwilight
+    Princess - Faron Woods"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

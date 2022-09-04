@@ -7,15 +7,18 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _playerRb;
     private MeshRenderer _meshRenderer;
 
+    private PlayerCondition _playerCondition;
+    public PlayerCondition PlayerConditions => _playerCondition;
+
     public float _playerSpeed = 10f;
 
-    private bool _isMoving = false;
+    //private bool _isMoving = false;
 
     private Vector3 _movingDirection;
     private Vector3 _nextCollisionPosition;
 
-    private float _minSwipeRecognition = 1000f;
-    //private float _maxSwipeRecognition = 1500f;
+    private float _minSwipeRecognition = 600f;
+    //private float _maxSwipeRecognition = 1000f;
 
     private Vector2 _currentSwipe;
     private Vector2 _lastSwipeFramePos;
@@ -27,21 +30,22 @@ public class PlayerController : MonoBehaviour
     {
         _playerRb = GetComponent<Rigidbody>();
         _meshRenderer = GetComponent<MeshRenderer>();
+        _playerCondition = new PlayerCondition(); 
     }
     private void Start()
     {
         solveColor = Random.ColorHSV(0f, 1f, 2f, 5f);
         _meshRenderer.material.color = solveColor;
+        _playerCondition.ResetConditions(); 
     }
 
     private void FixedUpdate()
     {
         #region MOVING REGION
         // apply movement only when the ball should be moving. 
-        if (_isMoving)
+        if (_playerCondition.IsMoving)
         {
-            if (!SoundEffect.Instance.GetComponent<AudioSource>().isPlaying)
-                SoundEffect.Instance.PlayPlayerMove();
+
             _playerRb.velocity = _playerSpeed * _movingDirection;
         }
         if (_nextCollisionPosition != Vector3.zero)
@@ -51,11 +55,11 @@ public class PlayerController : MonoBehaviour
             {
                 _nextCollisionPosition = Vector3.zero; // we reset the _nextCollision position. 
                 _movingDirection = Vector3.zero; // with no direction to move, the player will stand still. 
-                _isMoving = false; // player is not traveling thus. 
+                _playerCondition.IsMoving = false; // player is not traveling thus. 
             }
         }
 
-        if (!_isMoving)
+        if (!_playerCondition.IsMoving)
         {
             if (Input.GetMouseButton(0))
             {
@@ -117,7 +121,9 @@ public class PlayerController : MonoBehaviour
             _nextCollisionPosition = raycastHit.point;
         }
 
-        _isMoving = true;
+        _playerCondition.IsMoving = true;
+        if (!SoundEffect.Instance.GetComponent<AudioSource>().isPlaying)
+            SoundEffect.Instance.PlayPlayerMove();
     }
 
 }

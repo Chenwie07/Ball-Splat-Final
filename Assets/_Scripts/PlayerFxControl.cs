@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerFxControl : MonoBehaviour
 {
-
     [SerializeField] ParticleSystem _playerDie;
-
     internal IEnumerator PlayerDieFx()
     {
         _playerDie.Play();
@@ -18,5 +16,17 @@ public class PlayerFxControl : MonoBehaviour
         yield return new WaitForSeconds(2f);
         //MusicManager.Instance.GetComponent<AudioSource>().Stop();
         GameManager.instance.GameOver();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            if (!GetComponent<PlayerController>().PlayerConditions.IsMoving)
+            {
+                print("Play sound"); 
+                SoundEffect.Instance.PlayPlayerHitWall();
+            }
+        }
     }
 }
